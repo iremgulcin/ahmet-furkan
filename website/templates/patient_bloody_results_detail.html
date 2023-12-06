@@ -1,0 +1,81 @@
+{% extends "layout_doctor.html" %}
+
+{% block mainblock %}
+
+
+<!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <div class="header-icon">
+                        <i class="pe-7s-box1"></i>
+                    </div>
+                    <div class="header-title">
+                        <h1>Tahlil Sonuçları</h1>
+                        <small>{{bloody_result.TestDate}}</small>
+                    </div>
+                </section>
+                <!-- Main content -->
+                <section class="content">
+                    
+                    
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="panel panel-bd lobidrag">
+                                <div class="panel-heading">
+                                    <div class="panel-title">
+                                        <button type="button" class="btn btn-success btn-labeled m-b-5">
+                                        <span class="btn-label"><i class="glyphicon glyphicon-info-sign"></i>
+                                        </span> <a href="/bloody_results_detail/{{bloody_result.TestDate}}/AI_analysis" class="btn btn-success m-r-2 m-b-5">Yapay Zeka Analizi</a></button>
+                                  </div>
+                                </div>
+                              <div class="table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <thead class="success">
+                                        <tr>
+                                            <th>İşlem Adı</th>
+                                            <th>Sonuç</th>
+                                            <th>Sonuç Birimi</th>
+                                            <th>Referans Değeri</th>
+                                            <th>Tarih</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for data in bloody_result %}
+                                        <tr >
+                                           <td>{{data.TestName}}</td>
+                                            <td>{{data.Result}}</td>
+                                            <td>{{data.ResultUnit}}</td>
+                                            <td>{{data.ReferenceValue}}</td>
+                                            <td>{{data.TestDate}}</td>
+                                            <div class="modal fade modal-success" id="modal-success" tabindex="-1" role="dialog">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                            <h1 class="modal-title">Yapay Zeka Analizi</h1>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p>Deneme Metni</p>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-success" data-dismiss="modal">Kapat</button>
+                                                            </div>
+                                                        </div><!-- /.modal-content -->
+                                                    </div><!-- /.modal-dialog -->
+                                                </div><!-- /.modal -->
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> <!-- /.content -->
+    </div> <!-- /.content-wrapper -->
+
+
+
+
+
+{% endblock mainblock %}

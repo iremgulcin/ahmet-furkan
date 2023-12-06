@@ -1,0 +1,139 @@
+{% extends "layout_patient.html" %}
+
+
+{% block mainblock %}
+
+
+
+<!-- Content Header (Page header) -->
+                <br><br>
+                <!-- Main content -->
+                <div class="content">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 m-b-20">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#tab1" data-toggle="tab">Radyolojik Görüntü</a></li>
+                                <li><a href="#tab2" data-toggle="tab">Yapay Zeka Analizi</a></li>
+                            </ul>
+
+                            <!-- Tab panels -->
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="tab1">
+                                    <div class="panel-body" style="display: flex; justify-content: center;">
+                                    </div>
+                                    
+                                    <div class="panel-body">
+                                    {% if radiology_images_info.Notes %}
+                                        <p>{{radiology_images_info.Notes}}</p>
+                                    {% else %}
+                                        <div class="col-sm-12" >
+                                            <div class="alert alert-sm alert-danger alert-dismissible" role="alert" >
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <i class="fa fa-exclamation-circle"></i><strong>Hata!</strong> Radyoloji Raporu Henüz Yüklenmemiştir.
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="tab2">
+                                    <div class="panel-body" style="display: flex; justify-content: center;">
+                                    </div>
+
+                                    <div class="panel-body">
+                                    {% if radiology_images_info.Notes %}
+                                        <p>{{radiology_images_info.Notes}}</p>
+
+                                    {% else %}
+                                        <div class="col-sm-12">
+                                            <div class="alert alert-sm alert-success alert-dismissible" role="alert">
+                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <i class="fa fa-check"></i><strong>Başarılı!</strong> Yapay zeka analizi sonucu aşağıda belirtilmiştir!
+                                            </div>
+
+
+                                            <textarea id="editor1" name="editor1">
+                                            
+                                            {% if label == "pneumonia" %}
+                                            
+                                                <p><strong>TANI RAPORU</strong></p>
+                                                <p><strong>Hasta Adı:</strong> {{patient_name_surname.FirstName}} {{patient_name_surname.LastName}}<br />
+                                                <strong>Tarih:</strong> {{radiology_images_info.ImageDate}}</p>
+                                                <p><strong>Radyolojik İnceleme:</strong> Akciğer Grafisi (Chest X-ray)</p>
+                                                <p><strong>Radyolojik Bulgular:</strong></p>
+                                                <ul>
+                                                    <li>Klinik bulguların uygunluğu dikkate alındığında, yukarıdaki radyolojik bulgular, hastanın <strong>zat&uuml;rre (pneumonia)</strong> olarak değerlendirilmesini desteklemektedir. Hastanın klinik durumu ve risk fakt&ouml;rleri g&ouml;z &ouml;n&uuml;nde bulundurularak, uygun tedavi planı ve takip &ouml;nerilir. <strong>Zat&uuml;rre (pneumonia)</strong> olma olasılığı = <strong>%{{probability}}</strong></li>
+                                                </ul>
+                                                <p><strong>&Ouml;nemli Not:</strong></p>
+                                                <ul>
+                                                    <li>Bu rapor, sadece radyolojik bulgulara dayalı olup, klinik değerlendirme ve diğer laboratuvar sonu&ccedil;ları ile birleştirilerek kesin bir tanı konulmalıdır. Hastanın tedavi s&uuml;reci, ilgili klinik birim tarafından y&uuml;r&uuml;t&uuml;lmelidir.</li>
+                                                </ul>
+                                                <p>Raporu hazırlayan:<br />
+                                                AI NABIZ Yapay Zeka Modeli</p>
+
+                                            {% elif label == "covid" %}
+
+                                                <p><strong>TANI RAPORU</strong></p>
+                                                <p><strong>Hasta Adı:</strong> {{patient_name_surname.FirstName}} {{patient_name_surname.LastName}}<br />
+                                                <strong>Tarih:</strong> {{radiology_images_info.ImageDate}}</p>
+                                                <p><strong>Radyolojik İnceleme:</strong> Akciğer Grafisi (Chest X-ray)</p>
+                                                <p><strong>Radyolojik Bulgular:</strong></p>
+                                                <ul>
+                                                    <li>Klinik bulguların uygunluğu dikkate alındığında, yukarıdaki radyolojik bulgular, hastanın COVID-19 (Yeni Koronavir&uuml;s Hastalığı) enfeksiyonuna bağlı pulmoner tutulumu işaret etmektedir. Hastanın yaş, hastalığın şiddeti ve varsa altta yatan diğer tıbbi durumları g&ouml;z &ouml;n&uuml;nde bulundurularak, uygun tedavi planı ve izlem &ouml;nerilir. Koronavir&uuml;s hastalığı olma olasılığı = %{{probability}}</li>
+                                                </ul>
+                                                <p><strong>&Ouml;nemli Not:</strong></p>
+                                                <ul>
+                                                    <li>Bu rapor, sadece radyolojik bulgulara dayalı olup, klinik değerlendirme ve diğer laboratuvar sonu&ccedil;ları ile birleştirilerek kesin bir tanı konulmalıdır. Hastanın tedavi s&uuml;reci, ilgili klinik birim tarafından y&uuml;r&uuml;t&uuml;lmelidir. COVID-19 tanısı, laboratuvar testleri ve diğer klinik kriterlerin de g&ouml;z &ouml;n&uuml;nde bulundurulmasıyla doğrulanmalıdır.</li>
+                                                </ul>
+                                                <p>Raporu hazırlayan:</p>
+                                                <p>AI NABIZ Yapay Zeka Modeli</p>
+                                            
+                                            {% elif label == "normal" %}
+
+                                                <p><strong>TANI RAPORU</strong></p>
+                                                <p><strong>Hasta Adı:</strong> {{patient_name_surname.FirstName}} {{patient_name_surname.LastName}}<br />
+                                                <strong>Tarih:</strong> {{radiology_images_info.ImageDate}}</p>
+                                                <p><strong>Radyolojik İnceleme:</strong> Akciğer Grafisi (Chest X-ray)</p>
+                                                <p><strong>Radyolojik Bulgular:</strong></p>
+                                                <p>Akciğer grafisi normal sınırlar i&ccedil;inde olup, herhangi bir anormallik veya patoloji saptanmamıştır. Sağlıklı olma olaslığı = %{{probability}}</p>
+                                                <p><strong>Sonu&ccedil;:</strong></p>
+                                                <p>Hastanın akciğer grafisi normal olarak değerlendirilmiştir. Akciğer sağlığına dair herhangi bir olumsuz bulguya rastlanmamıştır.</p>
+                                                <p>Raporu hazırlayan:<br />
+                                                AI NABIZ Yapay Zeka Modeli</p>
+
+                                            {% else %}
+                                                <p><strong>TANI RAPORU</strong></p>
+                                                <p><strong>Hasta Adı:</strong> {{patient_name_surname.FirstName}} {{patient_name_surname.LastName}}<br />
+                                                <strong>Tarih:</strong> {{radiology_images_info.ImageDate}}</p>
+                                                <p><strong>Radyolojik İnceleme:</strong>{{radiology_images_info.ImageType}}</p>
+                                                <p><strong>Radyolojik Bulgular:</strong></p>
+                                                <p>GÖRÜNTÜ ANALİZİ 3 BOYUTLU OLARAK GÖSTERİLMİŞTİR.</p>
+                                                <p>Raporu hazırlayan:<br />
+                                                AI NABIZ Yapay Zeka Modeli</p>
+
+                                            {% endif %}
+                                            </textarea>
+                                            <script>
+                                                    CKEDITOR.replace( 'editor1' );
+                                            </script>
+                                        </div>
+                                    {% endif %}
+                                    </div>
+
+                                </div>
+
+                                
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div> <!-- /.content -->
+
+
+
+{% endblock mainblock %}
+
+

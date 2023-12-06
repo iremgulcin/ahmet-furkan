@@ -1,0 +1,32 @@
+{% extends "layout_patient.html" %}
+
+{% block mainblock %}
+
+<!-- Content Wrapper. Contains page content -->
+<br><br>
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="main">
+                <ul class="cbp_tmtimeline">
+
+                    {% for item in visits %}
+                    <li>
+                        <time class="cbp_tmtime" datetime="{{item.visit.VisitDateTime}}"><span>{{item.visit.VisitDateTime}}</span></time>
+                        <div class="cbp_tmlabel">
+                            <h4>Hastalık: <span>{{item.visit.Reason}}</span></h4>
+                            <h4>Notlar: <span>{{item.visit.Notes}}</span></h4>
+                            <h4>Doktor: <span>{{item.doctor.FirstName}} {{item.doctor.LastName}}</span></h4>
+                            <h4>Doktor Email: <span>{{item.doctor.Email}}</span></h4>
+                        </div>
+                    </li>
+                    {% endfor %}
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</section> <!-- /.content -->
+
+{% endblock mainblock %}

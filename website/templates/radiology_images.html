@@ -1,0 +1,100 @@
+{% extends "layout_patient.html" %}
+
+{% block mainblock %}
+
+
+<!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <div class="header-icon">
+                        <i class="pe-7s-box1"></i>
+                    </div>
+                    <div class="header-title">
+                        <form action="#" method="get" class="sidebar-form search-box pull-right hidden-md hidden-lg hidden-sm">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button type="submit" name="search" id="search-btn" class="btn"><i class="fa fa-search"></i></button>
+                                </span>
+                            </div>
+                        </form>   
+                        <h1>Radyolojik Görüntülerim</h1>
+                        <small></small>
+                    </div>
+                </section>
+                <!-- Main content -->
+                <section class="content">
+                    
+                    
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="panel panel-bd lobidrag">
+                                <div class="panel-heading">
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                         <div class="col-sm-4">
+                                            <div class="dataTables_length">
+                                                <div class="input-group custom-search-form">
+                                                    <input type="search" class="form-control" placeholder="Tarih Giriniz">
+                                                    <span class="input-group-btn">
+                                                      <button class="btn btn-primary" type="button">
+                                                          <span class="glyphicon glyphicon-search"></span>
+                                                      </button>
+                                                  </span>
+                                              </div><!-- /input-group -->
+                                          </div>
+                                      </div>
+                                  </div>
+                                  
+                              </div>
+                              <div class="table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <thead class="success">
+                                        <tr>
+                                            <th>Tarih</th>
+                                            <th>Kurum Adı</th>
+                                            <th>Açıklama</th>
+                                            <th>Rapor</th>
+                                            <th>Radyolojik Görüntüler</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for data in radiology_images_info %}
+                                        <tr >
+                                           <td>{{data.ImageDate}}</td>
+                                            <td>{{data.HospitalName}}</td>
+                                            <td>{{data.ImageType}}</td>
+
+                                            {% if data.Notes %}
+                                            <td>
+                                                <a href="/bloody_results_detail/{{data.TestDate}}" class="btn btn-success btn-labeled ">
+                                                    <span class="btn-label"><i class="glyphicon glyphicon-info-sign"></i></span>
+                                                    {{data.Notes}}
+                                                </a>
+                                            </td>
+                                            {% else %}
+                                            <td>Rapor Yok</td>
+                                            {% endif %}
+
+                                            
+                                            <td>
+                                                <a href="/view_radiology_images/{{data.ID}}" class="btn btn-purple btn-rounded w-md">
+                                                    <span class="btn-label"><i class="glyphicon glyphicon-info-sign"></i></span>
+                                                    Görüntüle
+                                                </a>
+                                            </td>
+
+                                        </tr>
+                                        {% endfor %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> <!-- /.content -->
+    </div> <!-- /.content-wrapper -->
+
+
+{% endblock mainblock %}
